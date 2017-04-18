@@ -5,6 +5,7 @@
 <% end %>
 
 <% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:sync_service), admin_recurring_sync_path(@recurring) %>
   <%= button_link_to Spree.t(:new_plan), new_admin_recurring_plan_path(@recurring), :icon => 'plus', class: "btn-success", :id => 'admin_new_recurring_plans_link' %>
 <% end if can? :create, Spree::Plan %>
 

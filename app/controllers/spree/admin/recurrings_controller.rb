@@ -1,7 +1,7 @@
 module Spree
   module Admin
     class RecurringsController < Spree::Admin::BaseController
-      before_action :find_recurring, :only => [:edit, :update, :destroy]
+      before_action :find_recurring, :only => [:edit, :update, :destroy, :sync]
       before_action :build_recurring, :only => :create
 
       def index
@@ -14,7 +14,7 @@ module Spree
 
       def create
         if @recurring.save
-          flash[:notice] = "Recurring created succesfully."
+          flash[:notice] = "Recurring created successfully."
           redirect_to edit_admin_recurring_url(@recurring)
         else
           render :new
@@ -23,7 +23,7 @@ module Spree
 
       def update
         if @recurring.update_attributes(recurring_params(:update))
-          flash[:notice] = "Recurring updated succesfully."
+          flash[:notice] = "Recurring updated successfully."
           redirect_to edit_admin_recurring_url(@recurring)
         else
           render :edit
@@ -37,6 +37,12 @@ module Spree
           flash[:error] = "Recurring could not be deleted."
         end
         render_js_for_destroy
+      end
+
+      def sync
+        @recurring.get_plans
+        flash[:notice] = 'Recurring plans synced successfully.'
+        redirect_to edit_admin_recurring_url(@recurring)
       end
 
       private

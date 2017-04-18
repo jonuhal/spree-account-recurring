@@ -6,6 +6,7 @@ module Spree
 
         included do
           include PlanApiHandler
+          include RecurringApiHandler
           include SubscriptionApiHandler
           include SubscriptionEventApiHandler
         end

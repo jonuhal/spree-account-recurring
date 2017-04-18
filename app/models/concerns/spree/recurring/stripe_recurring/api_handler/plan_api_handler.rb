@@ -1,24 +1,25 @@
 module Spree
   class Recurring < Spree::Base
     class StripeRecurring < Spree::Recurring
-      module ApiHandler 
+      module ApiHandler
         module PlanApiHandler
           def create_plan(plan)
             raise_invalid_object_error(plan, Spree::Plan)
-            Stripe::Plan.create(
-              amount: stripe_amount(plan.amount),
-              interval: plan.interval,
-              interval_count: plan.interval_count,
-              name: plan.name,
-              currency: plan.currency,
-              id: plan.api_plan_id,
-              trial_period_days: plan.trial_period_days
-            )
+            if retrieve_api_plan(plan).nil?
+              Stripe::Plan.create(
+                  amount: stripe_amount(plan.amount),
+                  interval: plan.interval,
+                  interval_count: plan.interval_count,
+                  name: plan.name,
+                  currency: plan.currency,
+                  id: plan.api_plan_id,
+                  trial_period_days: plan.trial_period_days
+              )
+            end
           end
 
           def delete_plan(plan)
             raise_invalid_object_error(plan, Spree::Plan)
-            stripe_plan = retrieve_api_plan(plan)
             stripe_plan.delete
           end
 
@@ -30,7 +31,7 @@ module Spree
           end
 
           def set_api_plan_id(plan)
-            plan.api_plan_id = "KS-Plan-#{Time.current.to_i}"
+            plan.api_plan_id = "KS-Plan-#{Time.current.to_i}" if plan.api_plan_id.empty?
           end
 
           private

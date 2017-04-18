@@ -37,6 +37,7 @@ en:
     subscription_search: Subscription Search
     subscription_event_search: Subscription Event Search
     subscribed_at: Subscribed At
+    sync_subscription: Sync Subscription Plans
     unsubscribed_at: Unsubscribed At
     trial_period_days: Trial Period Days
     unsubscribe: Unsubscribe

@@ -4,6 +4,7 @@ Spree::Core::Engine.routes.draw do
       resources :plans, except: :show
     end
 
+    get 'recurrings/:id/sync', to: 'recurrings#sync', as: 'recurring_sync'
     resources :subscriptions, only: :index
     resources :subscription_events, only: :index
   end
