@@ -10,7 +10,8 @@ module Spree
     self.whitelisted_ransackable_attributes = %w[email subscribed_at]
 
     belongs_to :plan
-    belongs_to :user
+    belongs_to :user, class_name: Spree.user_class
+
     has_many :events, class_name: 'Spree::SubscriptionEvent'
 
     validates :plan_id, :email, :user_id, presence: true
