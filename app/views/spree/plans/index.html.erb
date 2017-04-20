@@ -4,7 +4,7 @@
   <div style='float:left;padding:20px;border:solid'>
     <strong><%= plan.name %></strong><br/>
     <%= number_to_currency plan.amount %> every <%= plan.interval_count %> <%= plan.interval.pluralize(plan.interval_count) %><br/>
-    <% if plan.trial_period_days > 0 %>
+    <% if not plan.trial_period_days.nil? and plan.trial_period_days > 0 %>
       <%= plan.trial_period_days %> <%= 'day'.pluralize(plan.trial_period_days) %> trial <br/>
     <% end %>
     <br/>

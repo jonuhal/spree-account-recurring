@@ -24,7 +24,7 @@ module Spree
           private
 
           def spree_amount(amount)
-            (amount / 100).to_i
+            amount.to_f / 100
           end
         end
       end
